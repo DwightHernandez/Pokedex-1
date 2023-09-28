@@ -64,6 +64,7 @@ function mostrarPokemon(poke) {
 
         Swal.fire({
             html: `
+            <form>
         <div class="contenedor-swal"> 
         <p class="nombre-alert">${poke.name}</p>
         <p class="pokemon-id">#${pokeId}</p>
@@ -90,7 +91,8 @@ function mostrarPokemon(poke) {
             </div>`
                     )
                     .join("")}</div>
-        </div>`,
+        </div>
+        </form>`,
             width: "auto",
             height: "auto",
             background: "transparent",
