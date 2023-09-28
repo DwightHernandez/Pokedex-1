@@ -272,13 +272,35 @@ main {
     padding: 15%;
     padding-left: 5%;
     padding-right: 5%;
-
+    text-transform: uppercase;
+    font-weight: 600;
+    padding-top: 3%;
+    border-color: #78C850;
+    border-width: 20vw;
 }   
+
+.pokemon-id{
+    font-weight: 800;
+    color: #7c62b7;
+    font-size: 1vw;
+}
 
 .imagen-Swal{
     height: 40vh;
 }
 
+.nombre-alert{
+    font-size: 1vw;
+    padding-top: 1%;
+    padding-bottom: 2%;
+}
+
+.stat-bar-container{
+    padding-top: 1.5%;
+    margin-top: 2%;
+    font-weight: 400;
+    font-style: italic;
+}
 /*------------------------------------------------------------*/
 
 .normal {
