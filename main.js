@@ -1,17 +1,27 @@
+// Selecciona el elemento HTML con el ID "listaPokemon"
 const listaPokemon = document.querySelector("#listaPokemon");
+
+// Selecciona todos los elementos HTML con la clase "btn-header"
 const botonesHeader = document.querySelectorAll(".btn-header");
+
+// Define la URL base para hacer las solicitudes a la API de Pokémon
 let URL = "https://pokeapi.co/api/v2/pokemon/";
 
+// Realiza una solicitud para obtener información sobre 1017 Pokémon
 for (let i = 1; i <= 1017; i++) {
+    // Realiza una solicitud para obtener información de un Pokémon específico
     fetch(URL + i)
         .then((response) => response.json())
         .then(data => mostrarPokemon(data))
 }
-function mostrarPokemon(poke) {
 
+// Función para mostrar información de un Pokémon
+function mostrarPokemon(poke) {
+    // Obtiene los tipos del Pokémon y los formatea
     let tipos = poke.types.map((type) => `<p class="${type.type.name} tipo">${type.type.name}</p>`);
     tipos = tipos.join('');
 
+    // Obtiene el ID del Pokémon y lo formatea
     let pokeId = poke.id.toString();
     if (pokeId.length === 1) {
         pokeId = "00" + pokeId;
@@ -19,6 +29,7 @@ function mostrarPokemon(poke) {
         pokeId = "0" + pokeId;
     }
 
+    // Crea un nuevo elemento div para mostrar la información del Pokémon
     const div = document.createElement("div");
     div.classList.add("pokemon");
     div.innerHTML = `
@@ -46,26 +57,27 @@ function mostrarPokemon(poke) {
     `;
     listaPokemon.append(div);
 
+    // Agrega un evento de clic al div del Pokémon para mostrar detalles
     div.addEventListener("click", async () => {
         let img = poke.sprites.other["official-artwork"].front_default;
         let defaultImg = "Img/Pokeball.png";
 
         Swal.fire({
-            html: /*html*/ `
+            html: `
         <div class="contenedor-swal"> 
+        <p class="nombre-alert">${poke.name}</p>
+        <p class="pokemon-id">#${pokeId}</p>
             <div class="cont-imagen-Swal">
             <img class="imagen-Swal" 
                 src="${img ? img : defaultImg}" 
                 alt="${poke.name}">
             </div>
-            <p class="pokemon-id">#${pokeId}</p> 
-            <p class="nombre-alert">${poke.name}</p>
             <div class="tipos-alert" style="text-align: center;">
             ${tipos}
             </div>
             <div class="pokeStat">${poke.stats
                     .map(
-                        (data) => /*html */ `
+                        (data) => `
             <div class="stat-bar-container">
                 <div class="stat-bar">
                 <div class="stat-bar-fill" style="width: ${data.base_stat / 2}%;">
@@ -84,12 +96,37 @@ function mostrarPokemon(poke) {
             background: "transparent",
             padding: "0rem",
             margin: "0rem",
-            // grow: "column",
             showConfirmButton: false,
         });
     });
 }
 
+// Itera sobre los botones del encabezado y agrega un evento de clic a cada uno
+botonesHeader.forEach(boton => boton.addEventListener("click", (event) => {
+    const botonId = event.currentTarget.id;
+
+    listaPokemon.innerHTML = "";
+
+    for (let i = 1; i <= 1017; i++) {
+        fetch(URL + i)
+            .then((response) => response.json())
+            .then(data => {
+
+                if (botonId === "ver-todos") {
+                    mostrarPokemon(data);
+                } else {
+                    const tipos = data.types.map(type => type.type.name);
+                    if (tipos.some(tipo => tipo.includes(botonId))) {
+                        mostrarPokemon(data);
+                    }
+                }
+
+            })
+    }
+}))
+
+
+//Cuando se haga click sobre los botones del encabezador segun la clase se muestren los pokemones de dicha clase
 botonesHeader.forEach(boton => boton.addEventListener("click", (event) => {
     const botonId = event.currentTarget.id;
 
@@ -115,6 +152,8 @@ botonesHeader.forEach(boton => boton.addEventListener("click", (event) => {
 
 /*-------------------------------------------seccion2*/
 
+
+//Seleccionan los divs a manipular para mostrar la informacion
 const pokeCard = document.querySelector('[data-poke-card]');
 const pokeName = document.querySelector('[data-poke-name]');
 const pokeImg = document.querySelector('[data-poke-img]');
@@ -123,6 +162,8 @@ const pokeId = document.querySelector('[data-poke-id]');
 const pokeTypes = document.querySelector('[data-poke-types]');
 const pokeStats = document.querySelector('[data-poke-stats]');
 
+
+//Segun el tipo del pokemon muestre el color correspondiente
 const typeColors = {
     electric: '#FFEA70',
     normal: '#B09398',
