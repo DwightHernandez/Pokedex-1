@@ -11,7 +11,6 @@ Esta aplicación web sirve como una Pokédex, permitiendo a los usuarios ver inf
 - [Funcionalidades](#funcionalidades)
 - [Cómo Utilizar](#cómo-utilizar)
 - [Contribuciones](#contribuciones)
-- [Licencia](#licencia)
 
 ## Uso
 
@@ -28,7 +27,7 @@ La aplicación proporciona una interfaz para ver información sobre los Pokémon
 1. Clona o descarga el repositorio a tu máquina local.
 
     ```bash
-    git clone <url_del_repositorio>
+    git clone https://github.com/KevinnHernandez/Pokedex.git
     ```
 
 2. Abre el archivo `index.html` en un navegador web para acceder a la aplicación web de la Pokédex Pokémon.
