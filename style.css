@@ -458,7 +458,7 @@ input {
 
 .poke-card::before {
     content: '';
-    background: radial-gradient(black 33%, transparent 33%);
+    background: radial-gradient(black 33%, transparent 33% );
     background-size: 3px 3px;
     border-radius: 4px;
     height: 100%;
