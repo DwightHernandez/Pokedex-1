@@ -61,4 +61,3 @@ Si deseas contribuir a este proyecto, sigue estos pasos:
 
 ---
 
-Siéntete libre de personalizar este README para que se adapte a las necesidades y estructura específicas de tu proyecto.
