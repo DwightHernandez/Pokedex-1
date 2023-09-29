@@ -63,36 +63,41 @@ function mostrarPokemon(poke) {
         let defaultImg = "Img/Pokeball.png";
 
         Swal.fire({
-            html: `
-            <form>
-        <div class="contenedor-swal"> 
-        <p class="nombre-alert">${poke.name}</p>
-        <p class="pokemon-id">#${pokeId}</p>
-            <div class="cont-imagen-Swal">
-            <img class="imagen-Swal" 
-                src="${img ? img : defaultImg}" 
-                alt="${poke.name}">
-            </div>
-            <div class="tipos-alert" style="text-align: center;">
-            ${tipos}
-            </div>
-            <div class="pokeStat">${poke.stats
+            html: /*html*/ `
+                    <div class="contenedor-swal"> 
+                      <div class="cont-imagen-Swal">
+                        <img class="imagen-Swal" 
+                          src="${img ? img : defaultImg}" 
+                          alt="${poke.name}">
+                      </div>
+                      <p class="pokemon-id">#${pokeId}</p> 
+                      <p class="nombre-alert">${poke.name}</p>
+                      <div class="tipos-alert" style="text-align: center;">
+                        ${tipos}
+                      </div>
+                      <div class="pokeStat">
+                        <form>${poke.stats
                     .map(
-                        (data) => `
-            <div class="stat-bar-container">
-                <div class="stat-bar">
-                <div class="stat-bar-fill" style="width: ${data.base_stat / 2}%;">
-                </div>
-                </div>
-                <span class="stat_poke">
-                <b class="base_stat">${data.base_stat}</b> <b class="name_stat">${data.stat.name
-                            }</b>
-                </span>
-            </div>`
+                        (data) => /*html */ `
+                          <div class="stat-bar-container">
+                            <div class="stat-bar">
+                              <input 
+                                type="range" 
+                                value ="${data.base_stat}"
+                                name="${data.stat.name}" max="260"/>
+                                <label data-name="${data.stat.name}">
+                                  <b>${data.base_stat}</b>
+                                  ${data.stat.name}
+                                </label>
+                            </div>
+                          </div>`
                     )
-                    .join("")}</div>
-        </div>
-        </form>`,
+                    .join("")}
+                
+                          <input type="submit" value="Guardar Nueva Version"/>
+                        </form>
+                      </div>
+                    </div>`,
             width: "auto",
             height: "auto",
             background: "transparent",
@@ -100,8 +105,29 @@ function mostrarPokemon(poke) {
             margin: "0rem",
             showConfirmButton: false,
         });
+
+        const contenedorHtml = document.querySelector(".pokeStat");
+
+        contenedorHtml
+            .querySelector("form")
+            .addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+
+
+
+
+
+
+            });
+        // muestra el numero de la barra segun de modifique
+
+        contenedorHtml.addEventListener("input", (e) => {
+            let myLabelStat = e.target.nextElementSibling;
+            myLabelStat.innerHTML = `<b>${e.target.value}</b> ${myLabelStat.dataset.name}`;
+        });
     });
-}
+};
 
 // Itera sobre los botones del encabezado y agrega un evento de clic a cada uno
 botonesHeader.forEach(boton => boton.addEventListener("click", (event) => {
@@ -242,7 +268,7 @@ const renderPokemonStats = stats => {
 
 const renderNotFound = () => {
     pokeName.textContent = 'No encontrado';
-    pokeImg.setAttribute('src', 'poke-shadow.png' );
+    pokeImg.setAttribute('src', 'poke-shadow.png');
     pokeImg.style.background = '#fff';
     pokeTypes.innerHTML = '';
     pokeStats.innerHTML = '';
