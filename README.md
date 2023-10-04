@@ -1,63 +1,54 @@
 
 ---
 
-# Aplicación Web Pokedex Pokémon
+# Pokédex Pokémon
 
-Esta aplicación web sirve como una Pokédex, permitiendo a los usuarios ver información sobre diferentes Pokémon y filtrarlos según sus tipos.
-
-## Tabla de Contenidos
-
-- [Uso](#uso)
-- [Funcionalidades](#funcionalidades)
-- [Cómo Utilizar](#cómo-utilizar)
-- [Contribuciones](#contribuciones)
+Este proyecto es una página web que muestra información sobre diferentes Pokémon y permite filtrarlos por tipo. Utiliza datos de la API de Pokémon y una API local (JSON Server) para almacenar información adicional sobre los Pokémon.
 
 ## Uso
 
-La aplicación proporciona una interfaz para ver información sobre los Pokémon, incluyendo sus nombres, números de identificación, tipos y algunas estadísticas básicas. Los usuarios pueden navegar a través de todos los Pokémon disponibles o filtrarlos en función de tipos específicos.
+A continuación se describen los pasos para utilizar la página web:
 
-## Funcionalidades
+1. **Clonar el repositorio**:
+   Clona este repositorio en tu máquina local utilizando Git:
+   ```
+   git clone https://github.com/tu_usuario/pokemon-pokedex.git
+   ```
 
-- Mostrar información de todos los Pokémon disponibles.
-- Filtrar Pokémon por tipos como Eléctrico, Fuego, Agua, Planta, etc.
-- Buscar un Pokémon específico ingresando su nombre o número de identificación.
+2. **Instalar JSON Server**:
+   Este proyecto utiliza JSON Server para simular una API local. Asegúrate de tener [JSON Server](https://github.com/typicode/json-server) instalado globalmente. Si no lo tienes, puedes instalarlo con npm:
+   ```
+   npm install -g json-server
+   ```
 
-## Cómo Utilizar
+3. **Iniciar JSON Server**:
+   Inicia JSON Server para simular la API local ejecutando el siguiente comando desde la raíz del proyecto:
+   ```
+   json-server --watch db.json --port 5050
+   ```
 
-1. Clona o descarga el repositorio a tu máquina local.
+4. **Abrir la página en un navegador**:
+   Abre el archivo `index.html` en tu navegador preferido. Puedes hacerlo directamente desde el explorador de archivos o utilizando un servidor local.
 
-    ```bash
-    git clone https://github.com/KevinnHernandez/Pokedex.git
-    ```
+5. **Explorar Pokémon**:
+   - Al abrir la página, verás una lista de Pokémon.
+   - Haz clic en "Ver todos" para mostrar todos los Pokémon disponibles.
+   - También puedes filtrar los Pokémon por tipo haciendo clic en los botones correspondientes (por ejemplo, "Fire" para ver Pokémon de tipo fuego).
 
-2. Abre el archivo `index.html` en un navegador web para acceder a la aplicación web de la Pokédex Pokémon.
+6. **Buscar Pokémon**:
+   - Utiliza el formulario de búsqueda en la sección "Pokedex" para buscar un Pokémon por nombre. Ingresa el nombre y presiona Enter.
 
-3. En la página principal, puedes:
+7. **Ver detalles de un Pokémon**:
+   - Haz clic en un Pokémon para ver detalles adicionales, como su imagen y estadísticas.
+   - Puedes modificar las estadísticas y guardar una nueva versión del Pokémon.
 
-   - **Ver Todos los Pokémon**: Haz clic en el botón "Ver todos" para mostrar todos los Pokémon disponibles.
+8. **Guardar una nueva versión de un Pokémon**:
+   - Modifica las estadísticas utilizando las barras deslizantes en la sección de estadísticas.
+   - Haz clic en "Guardar Nueva Versión" para almacenar las estadísticas actualizadas en la base de datos local.
 
-   - **Filtrar Pokémon por Tipo**:
-     - Haz clic en los botones de tipo respectivos (por ejemplo, Eléctrico, Fuego, Agua) para filtrar los Pokémon por ese tipo.
+## Requisitos del sistema
 
-   - **Buscar un Pokémon**:
-     - Ingresa el nombre o el número de identificación del Pokémon en la barra de búsqueda de la segunda sección y presiona `Enter` o haz clic en el botón de búsqueda para ver los detalles del Pokémon específico.
-
-4. Haz clic en cualquier Pokémon mostrado para ver información detallada sobre ese Pokémon, incluyendo su imagen, tipos y estadísticas base.
-
-## Contribuciones
-
-Si deseas contribuir a este proyecto, sigue estos pasos:
-
-1. Haz un fork del proyecto en GitHub.
-
-2. Crea una nueva rama con un nombre descriptivo para tu función o corrección de errores.
-
-3. Realiza tus cambios y asegúrate de que el código esté formateado correctamente.
-
-4. Prueba tus cambios para asegurarte de que funcionen como se espera.
-
-5. Envía una solicitud de extracción al repositorio original.
-
+- Navegador web moderno (Chrome, Firefox, Safari, Edge, etc.).
+- [JSON Server](https://github.com/typicode/json-server) instalado globalmente.
 
 ---
-
