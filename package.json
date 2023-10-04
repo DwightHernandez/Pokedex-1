@@ -1,16 +1,16 @@
 {
   "name": "pokedex-final",
   "version": "1.0.0",
-  "description": "",
+  "description": "---",
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "dev":"json-server --watch db.json --port 5015"
+    "dev":"json-server --watch db.json --port 5050"
   },
   "keywords": [],
-  "author": "KevinnHernandez",
+  "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "json-server": "0.17.3"
+  "dependencies": {
+    "json-server": "^0.17.4"
   }
 }

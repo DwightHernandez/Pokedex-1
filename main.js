@@ -1,27 +1,74 @@
-// Selecciona el elemento HTML con el ID "listaPokemon"
+const apiURL = "http://localhost:5050/pichamones";  // Ruta de la API JSON en tu servidor
 const listaPokemon = document.querySelector("#listaPokemon");
-
-// Selecciona todos los elementos HTML con la clase "btn-header"
 const botonesHeader = document.querySelectorAll(".btn-header");
+const URL = "https://pokeapi.co/api/v2/pokemon/";
 
-// Define la URL base para hacer las solicitudes a la API de Pokémon
-let URL = "https://pokeapi.co/api/v2/pokemon/";
-
-// Realiza una solicitud para obtener información sobre 1017 Pokémon
 for (let i = 1; i <= 1017; i++) {
-    // Realiza una solicitud para obtener información de un Pokémon específico
     fetch(URL + i)
         .then((response) => response.json())
         .then(data => mostrarPokemon(data))
 }
 
-// Función para mostrar información de un Pokémon
+async function createOrUpdatePokemon(name, imageUrl, stats) {
+    try {
+        const existingPokemonResponse = await fetch(`${apiURL}?name=${name}`);
+        const existingPokemonData = await existingPokemonResponse.json();
+
+        if (existingPokemonData.length > 0) {
+            const existingPokemonId = existingPokemonData[0].id;
+            updatePokemon(existingPokemonId, name, imageUrl, stats);
+        } else {
+            createPokemon(name, imageUrl, stats);
+        }
+    } catch (error) {
+        console.error("Error al crear o actualizar un Pokémon:", error);
+    }
+}
+
+async function createPokemon(name, imageUrl, stats) {
+    try {
+        const response = await fetch(apiURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                imageUrl: imageUrl,
+                stats: stats,
+            }),
+        });
+        const data = await response.json();
+        console.log(`Pokémon ${data.name} creado con éxito en la API mock.`);
+    } catch (error) {
+        console.error("Error al crear un Pokémon:", error);
+    }
+}
+
+async function updatePokemon(id, name, imageUrl, stats) {
+    try {
+        const response = await fetch(`${apiURL}/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                imageUrl: imageUrl,
+                stats: stats,
+            }),
+        });
+        const data = await response.json();
+        console.log(`Pokémon ${data.name} actualizado con éxito en la API mock.`);
+    } catch (error) {
+        console.error("Error al actualizar un Pokémon:", error);
+    }
+}
+
 function mostrarPokemon(poke) {
-    // Obtiene los tipos del Pokémon y los formatea
     let tipos = poke.types.map((type) => `<p class="${type.type.name} tipo">${type.type.name}</p>`);
     tipos = tipos.join('');
 
-    // Obtiene el ID del Pokémon y lo formatea
     let pokeId = poke.id.toString();
     if (pokeId.length === 1) {
         pokeId = "00" + pokeId;
@@ -29,16 +76,15 @@ function mostrarPokemon(poke) {
         pokeId = "0" + pokeId;
     }
 
-    // Crea un nuevo elemento div para mostrar la información del Pokémon
     const div = document.createElement("div");
     div.classList.add("pokemon");
     div.innerHTML = `
     <div class="pokemon-info">
         <p class="pokemon-id-back">#${pokeId}</p>
         <div class="pokemon-imagen">
-        <button id=myPokemons>
-        <img src="${poke.sprites.other["official-artwork"].front_default}" alt="${poke.name}">
-        </button>
+            <button id=myPokemons>
+                <img src="${poke.sprites.other["official-artwork"].front_default}" alt="${poke.name}">
+            </button>
         </div>
         <div class="pokemon-info">
             <div class="nombre-contenedor">
@@ -57,47 +103,45 @@ function mostrarPokemon(poke) {
     `;
     listaPokemon.append(div);
 
-    // Agrega un evento de clic al div del Pokémon para mostrar detalles
     div.addEventListener("click", async () => {
         let img = poke.sprites.other["official-artwork"].front_default;
         let defaultImg = "Img/Pokeball.png";
 
         Swal.fire({
-            html: /*html*/ `
-                    <div class="contenedor-swal"> 
-                      <div class="cont-imagen-Swal">
+            html: `
+                <div class="contenedor-swal"> 
+                    <div class="cont-imagen-Swal">
                         <img class="imagen-Swal" 
-                          src="${img ? img : defaultImg}" 
-                          alt="${poke.name}">
-                      </div>
-                      <p class="pokemon-id">#${pokeId}</p> 
-                      <p class="nombre-alert">${poke.name}</p>
-                      <div class="tipos-alert" style="text-align: center;">
+                            src="${img ? img : defaultImg}" 
+                            alt="${poke.name}">
+                    </div>
+                    <p class="pokemon-id">#${pokeId}</p> 
+                    <p class="nombre-alert">${poke.name}</p>
+                    <div class="tipos-alert" style="text-align: center;">
                         ${tipos}
-                      </div>
-                      <div class="pokeStat">
+                    </div>
+                    <div class="pokeStat">
                         <form>${poke.stats
-                    .map(
-                        (data) => /*html */ `
-                          <div class="stat-bar-container">
-                            <div class="stat-bar">
-                              <input 
-                                type="range" 
-                                value ="${data.base_stat}"
-                                name="${data.stat.name}" max="260"/>
-                                <label data-name="${data.stat.name}">
-                                  <b>${data.base_stat}</b>
-                                  ${data.stat.name}
-                                </label>
-                            </div>
-                          </div>`
-                    )
-                    .join("")}
-                
-                          <input type="submit" value="Guardar Nueva Version"/>
-                        </form>
-                      </div>
-                    </div>`,
+                            .map(
+                                (data) => `
+                                <div class="stat-bar-container">
+                                    <div class="stat-bar">
+                                        <input 
+                                            type="range" 
+                                            value ="${data.base_stat}"
+                                            name="${data.stat.name}" max="260"/>
+                                        <label data-name="${data.stat.name}">
+                                            <b>${data.base_stat}</b>
+                                            ${data.stat.name}
+                                        </label>
+                                    </div>
+                                </div>`
+                            )
+                            .join("")}
+                        <input type="submit" value="Guardar Nueva Version"/>
+                    </form>
+                </div>
+            `,
             width: "auto",
             height: "auto",
             background: "transparent",
@@ -114,22 +158,26 @@ function mostrarPokemon(poke) {
                 e.preventDefault();
                 const formData = new FormData(e.target);
 
+                const stats = {};
+                formData.forEach((value, key) => {
+                    stats[key] = parseInt(value);
+                });
 
-
-
-
-
+                await createOrUpdatePokemon(poke.name, img, stats);
             });
-        // muestra el numero de la barra segun de modifique
+
+        contenedorHtml.addEventListener("input", (e) => {
+            let myLabelStat = e.target.nextElementSibling;
+            myLabelStat.innerHTML = `<b>${e.target.value}</b> ${myLabelStat.dataset.name}`;
+        });
 
         contenedorHtml.addEventListener("input", (e) => {
             let myLabelStat = e.target.nextElementSibling;
             myLabelStat.innerHTML = `<b>${e.target.value}</b> ${myLabelStat.dataset.name}`;
         });
     });
-};
+}
 
-// Itera sobre los botones del encabezado y agrega un evento de clic a cada uno
 botonesHeader.forEach(boton => boton.addEventListener("click", (event) => {
     const botonId = event.currentTarget.id;
 
@@ -151,32 +199,7 @@ botonesHeader.forEach(boton => boton.addEventListener("click", (event) => {
 
             })
     }
-}))
-
-
-//Cuando se haga click sobre los botones del encabezador segun la clase se muestren los pokemones de dicha clase
-botonesHeader.forEach(boton => boton.addEventListener("click", (event) => {
-    const botonId = event.currentTarget.id;
-
-    listaPokemon.innerHTML = "";
-
-    for (let i = 1; i <= 1017; i++) {
-        fetch(URL + i)
-            .then((response) => response.json())
-            .then(data => {
-
-                if (botonId === "ver-todos") {
-                    mostrarPokemon(data);
-                } else {
-                    const tipos = data.types.map(type => type.type.name);
-                    if (tipos.some(tipo => tipo.includes(botonId))) {
-                        mostrarPokemon(data);
-                    }
-                }
-
-            })
-    }
-}))
+}));
 
 /*-------------------------------------------seccion2*/
 

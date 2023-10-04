@@ -1,0 +1,17 @@
+{
+  "pichamones": [
+    {
+      "name": "ivysaur",
+      "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
+      "stats": {
+        "hp": 260,
+        "attack": 260,
+        "defense": 260,
+        "special-attack": 260,
+        "special-defense": 260,
+        "speed": 260
+      },
+      "id": 1
+    }
+  ]
+}
