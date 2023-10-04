@@ -4,6 +4,19 @@
       "name": "ivysaur",
       "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
       "stats": {
+        "hp": 0,
+        "attack": 0,
+        "defense": 0,
+        "special-attack": 259,
+        "special-defense": 80,
+        "speed": 60
+      },
+      "id": 1
+    },
+    {
+      "name": "braixen",
+      "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/654.png",
+      "stats": {
         "hp": 260,
         "attack": 260,
         "defense": 260,
@@ -11,7 +24,20 @@
         "special-defense": 260,
         "speed": 260
       },
-      "id": 1
+      "id": 2
+    },
+    {
+      "name": "bulbasaur",
+      "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+      "stats": {
+        "hp": 260,
+        "attack": 260,
+        "defense": 260,
+        "special-attack": 255,
+        "special-defense": 65,
+        "speed": 45
+      },
+      "id": 3
     }
   ]
 }
